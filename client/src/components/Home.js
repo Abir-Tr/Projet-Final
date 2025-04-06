@@ -4,8 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, Outlet } from "react-router";
 import Modal from 'react-modal';
-import { useDispatch } from "react-redux";
-import { adding_user } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { adding_user, log_out } from "../redux/actions";
+
 const customStyles = {
     content: {
       top: '50%',
@@ -25,6 +26,8 @@ const Home=()=>{
     const [currentPassword, setCurrentPassword]=useState("")
     const [currentNumCin, setCurrentNumCin]=useState(0)
     const [currentNumTel, setCurrentNumTel]=useState(0)
+    const currentUser =useSelector(state=>state.users)
+    console.log(currentUser)
 
     const dispatch =useDispatch()
 
@@ -58,11 +61,15 @@ const Home=()=>{
 
 
       }
+      function loggingOut (){
+        dispatch(log_out())
+       }
+      
     
     return(
         <>
        
-    {/* <Navbar>    </Navbar> */}
+    <Navbar>    </Navbar>
 
    
       <Navbar bg="light" data-bs-theme="light">
@@ -71,9 +78,18 @@ const Home=()=>{
           <Nav className="me-auto">
             <Link to={`/`} >Home</Link>
             <button onClick={openModal}>Sign in</button>
+            {currentUser ? (
+                        <button onClick={loggingOut}>Logout</button>
+                    ) : (
+             <Link to={`/LoginUser`}>Login </Link>
+                    )}
             <Link to={`/Reservation`}>Reservation</Link>
+            <Link to ={`/ListRooms`}>Rooms</Link>
+           
           </Nav>
         </Container>
+{/* {currentUser &&(<span style={{color:"white"}} >{currentUser.name}</span>) } 
+        {currentUser?(<button onClick={loggingOut}>log_out</button>): ( <button> Login</button>)} */}
         
       </Navbar>
       <Outlet/>

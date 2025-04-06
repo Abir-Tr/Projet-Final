@@ -68,21 +68,54 @@ route.post('/register', async (req, res) => {
   
   // Connexion de l'utilisateur
 route.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
+  console.log("omar")
+  // const { email, password } = req.body;
+ 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'User not found' });
+  
+    const user = await User.findOne({ email :req.body.email});
+    console.log(user)
+    if (!user) { return res.send('User not found')  };
+   
+    const isMatch = await bcrypt.compare(req.body.password,user.password);
+    if (!isMatch) {return res.status(400).json({ message: 'Invalid credentials' })};
 
-    const isMatch = await user.bcrypt.compare(password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
-
-    const token = await jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ token });
+    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json({error})
+    res.status(400).json({error:'thffh'})
   }
 });
+
+
+
+
+// route.post('/login', async (req, res) => {
+//   try {
+//     const user = await User.findOne({ email: req.body.email });
+
+//     if (!user) {
+//       return res.send('User not found');
+//     }
+
+//     const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+//     if (!isMatch) {
+//       return res.status(400).json({ message: 'Invalid credentials' });
+//     }
+
+//     if (!process.env.JWT_SECRET) {
+//       return res.status(500).json({ error: 'JWT_SECRET not defined in environment variables' });
+//     }
+
+//     const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+//     res.status(200).json({ user });
+    
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// });
+
 route.get(`/isAuth`, isAuth, (req, res) => {
     res.send({ user: req.user });
   });

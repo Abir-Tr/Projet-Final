@@ -26,26 +26,27 @@ const Reservation=()=>{
     return(<>
 
 <Form>
-      <fieldset disabled>
+      
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Cutomer Name</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" value={newCustomerName} onChange={(e)=>setNewCustomerName(e.target.value)} />
+          <Form.Label >Cutomer Name</Form.Label>
+          <Form.Control  placeholder="Disabled input" value={newCustomerName} onChange={(e)=>setNewCustomerName(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Cutomer Name</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" value={newChekIn} onChange={(e)=>setNewChekIn(e.target.value)} />
+          <Form.Label h>Cutomer Name</Form.Label>
+          <Form.Control  placeholder="Disabled input" value={newChekIn} onChange={(e)=>setNewChekIn(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Cutomer Name</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" value={newCekOut} onChange={(e)=>setNewChekOn(e.target.value)} />
+          <Form.Label >Cutomer Name</Form.Label>
+          <Form.Control  placeholder="Disabled input" value={newCekOut} onChange={(e)=>setNewChekOn(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Cutomer Name</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" value={statue} onChange={(e)=>setStatue(e.target.value)} />
+          <Form.Label >Cutomer Name</Form.Label>
+          <Form.Control  placeholder="Disabled input" value={statue} onChange={(e)=>setStatue(e.target.value)} />
         </Form.Group>
+        
      
         <Button onClick={reserve}type="submit">Submit</Button>
-      </fieldset>
+      
     </Form>
     
     </>

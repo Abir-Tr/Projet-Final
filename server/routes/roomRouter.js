@@ -6,6 +6,7 @@ const route =express.Router()
 route.post("/addRoom", async(req,res)=>{
  try {
     const room= new Room ({
+      name:req.body.name,
        price:req.body.price, 
         description : req.body.description,
       available :req.body.available, 
@@ -25,7 +26,7 @@ route.post("/addRoom", async(req,res)=>{
 
 route.get("/afficherRooms", async(req,res)=>{
 try {
-  const rooms=  await Room.find();
+  const rooms=  await Room.find({available:true});
        res.status (200).json({rooms})
    } 
   catch (error) {
