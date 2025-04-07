@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from "react-redux";
 import { adding_user, log_out } from "../redux/actions";
@@ -27,9 +27,11 @@ const Home=()=>{
     const [currentNumCin, setCurrentNumCin]=useState(0)
     const [currentNumTel, setCurrentNumTel]=useState(0)
     const currentUser =useSelector(state=>state.users)
+    
     console.log(currentUser)
 
     const dispatch =useDispatch()
+    const navigate = useNavigate()
 
     function openModal() {
       setIsOpen(true);
@@ -77,13 +79,14 @@ const Home=()=>{
           <Navbar.Brand >Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Link to={`/`} >Home</Link>
+            {currentUser &&(<span style={{color:"white"}} >{currentUser.name}</span>) }
             <button onClick={openModal}>Sign in</button>
             {currentUser ? (
                         <button onClick={loggingOut}>Logout</button>
                     ) : (
-             <Link to={`/LoginUser`}>Login </Link>
+             <button onClick={()=>navigate(`/LoginUser`)} >Login </button>
                     )}
-            <Link to={`/Reservation`}>Reservation</Link>
+            {/* <Link to={`/Reservation`}>Reservation</Link> */}
             <Link to ={`/ListRooms`}>Rooms</Link>
            
           </Nav>

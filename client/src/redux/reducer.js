@@ -1,10 +1,9 @@
 
-import { ADDING, FETCH_ROOMS, FETCH_ROOMS_ERROR, LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
+import { ADDING, ADDING_ROOM, AFFICH_ROOMS,  LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
 
 
 
 const initialState = {
-  
     users: [],
     reservations:[],
     rooms: [],       // Liste des chambres
@@ -28,16 +27,13 @@ const initialState = {
               localStorage.removeItem("token")
               return{...state, users:null , token : null}
 
-              case FETCH_ROOMS:
-            return {
-                ...state,
-                rooms: action.payload, // Mettez à jour la liste des chambres
-            };
-        case FETCH_ROOMS_ERROR:
-            return {
-                ...state,
-                error: action.payload, // Mettez à jour l'erreur (si nécessaire)
-            };
+              case AFFICH_ROOMS:
+            return {...state,rooms: action.payload, };// Mettez à jour la liste des chambres 
+       
+             case ADDING_ROOM:
+             return {...state, rooms: action.payload.newRoom}
+
+             
         default:
       return state;
     }} ;
