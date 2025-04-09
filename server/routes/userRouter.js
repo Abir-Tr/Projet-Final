@@ -12,7 +12,7 @@ route.post("/addUser", async(req,res)=>{
             email: req.body.email,
             NumCin: req.body.NumCin,
              NumTel: req.body.NumTel,
-            //  role: role,
+             role: req.body.role,
              password: req.body.password, 
 
 
@@ -21,12 +21,12 @@ route.post("/addUser", async(req,res)=>{
         const cryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
         newUser.password = cryptedPassword;
         await newUser.save();
-        const payload = { id: newUser._id };
+    //     const payload = { id: newUser._id };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-        res.status(200).json({newUser,token})
+    // const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    //   expiresIn: "24h",
+    // });
+        res.status(200).json({newUser})
         
     } catch (error) {
         res.status(400).json({error:"user not added"})
@@ -80,8 +80,8 @@ route.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(req.body.password,user.password);
     if (!isMatch) {return res.status(400).json({ message: 'Invalid credentials' })};
 
-    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ user });
+    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '48h' });
+    res.status(200).json({ user,token});
   } catch (error) {
     res.status(400).json({error:'thffh'})
   }

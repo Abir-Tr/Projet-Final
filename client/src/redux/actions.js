@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADDING, ADDING_ROOM, AFFICH_ROOMS, LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
+import { ADDING, ADDING_ROOM, AFFICH_ROOMS, AUTHORIZED, LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
 
 export const adding_user = (newUser) => async (dispatch) => {
   try {
@@ -40,7 +40,7 @@ export const reserving = (newReservation) => async (dispatch) => {
   export const affich_Rooms = () => async (dispatch) => {
     try {
         const res = await axios.get(`/rooms/afficherRooms`); 
-           dispatch({type:AFFICH_ROOMS, payload:res.data})
+           dispatch({type:AFFICH_ROOMS, payload:res.data.rooms})
         
     } catch (error) {
       console.error(error);
@@ -48,10 +48,26 @@ export const reserving = (newReservation) => async (dispatch) => {
 }
 
 export const adding_room=(newRoom)=>async(dispatch)=>{
+  
   try {
-    const res= await axios.post(`/rooms/addRoom`)
-    dispatch({type:ADDING_ROOM, payload:res.data, newRoom})
+    console.log("omar")
+    const res= await axios.post(`/rooms/addRoom` , newRoom)
+    dispatch({type:ADDING_ROOM, payload:res.data})
   } catch (error) {
     console.error(error);
+  }
+}
+
+export const authorized =()=> async(dispatch)=>{
+  try {
+    const config={
+      headers: {autorisation:localStorage.getItem("token")}
+    }
+   
+    const res= await axios.get(`/users/isAuth`,config)
+    console.log(res.data)
+    dispatch({type:AUTHORIZED,payload: res.data})
+  } catch (error) {
+    
   }
 }

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from "react-redux";
 import {  logging } from "../redux/actions";
+// import { Link } from "react-router";
 
 
 const LoginUser=()=>{
@@ -47,7 +48,9 @@ dispatch(logging(user))
         Submit
       </Button>
     </Form>
-
+    {/* <h3>Forget Paswword</h3>
+    <Link to ={`/`}>Create New Account</Link> */}
+ 
     </>)
 }
  export default LoginUser

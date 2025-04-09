@@ -7,6 +7,7 @@ import { Routes , Route } from 'react-router';
 import Reservation from './components/Reservation';
 import LoginUser from './components/LoginUser';
 import ListRooms from './components/ListRooms';
+import Invoice from './components/Invoice';
  
 
 const App=()=> {
@@ -21,6 +22,7 @@ const App=()=> {
     <Route path='LoginUser' element={<LoginUser/>}/>
     <Route path='ListRooms' element={<ListRooms/>}/>
     <Route path='Reservation' element={<Reservation/>}/>
+    <Route path='Invoice' element={<Invoice/>}/>
     
     </Route>
   </Routes>

@@ -1,4 +1,5 @@
 const express = require ("express");
+const path = require("path")
 const app = express ();
 require("dotenv").config();
  const {connectDb}= require("./DataBase/connectDb");
@@ -13,6 +14,7 @@ app.use("/users",userRouter);
 app.use("/menu", menuRouter);
 app.use("/rooms", roomRouter);
 app.use("/reservation",reservationRouter);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 connectDb();
 app.listen(process.env.PORT,(err)=>

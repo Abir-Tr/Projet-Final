@@ -1,5 +1,5 @@
 
-import { ADDING, ADDING_ROOM, AFFICH_ROOMS,  LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
+import { ADDING, ADDING_ROOM, AFFICH_ROOMS,  AUTHORIZED,  LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
 
 
 
@@ -7,7 +7,7 @@ const initialState = {
     users: [],
     reservations:[],
     rooms: [],       // Liste des chambres
-    error: null,
+    
     token: localStorage.getItem("token"),
   };
   
@@ -15,8 +15,8 @@ const initialState = {
     switch (action.type) {
 
     case ADDING:
-        localStorage.setItem("token", action.payload.token);
-        return {...state , users: action.payload.newUser , token: action.payload.token };
+        // localStorage.setItem("token", action.payload.token);
+        return {...state , users: action.payload.newUser};
         case RESERVING:
        
           return{...state, reservation:action.payload.newReservation}
@@ -28,10 +28,12 @@ const initialState = {
               return{...state, users:null , token : null}
 
               case AFFICH_ROOMS:
-            return {...state,rooms: action.payload, };// Mettez à jour la liste des chambres 
+            return {...state,rooms: action.payload };// Mettez à jour la liste des chambres 
        
              case ADDING_ROOM:
              return {...state, rooms: action.payload.newRoom}
+             case AUTHORIZED:
+              return {...state, users: action.payload.user}
 
              
         default:
