@@ -68,13 +68,13 @@ route.post('/register', async (req, res) => {
   
   // Connexion de l'utilisateur
 route.post('/login', async (req, res) => {
-  console.log("omar")
+
   // const { email, password } = req.body;
  
   try {
   
     const user = await User.findOne({ email :req.body.email});
-    console.log(user)
+
     if (!user) { return res.send('User not found')  };
    
     const isMatch = await bcrypt.compare(req.body.password,user.password);

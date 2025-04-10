@@ -1,5 +1,5 @@
 
-import { ADDING, ADDING_ROOM, AFFICH_ROOMS,  AUTHORIZED,  LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
+import { ADDING, ADDING_ROOM, AFFICH_ROOMS,  AUTHORIZED,  LOG_OUT, LOGGING, RESERVING, SET_IMAGE } from "./actionTypes";
 
 
 
@@ -7,6 +7,7 @@ const initialState = {
     users: [],
     reservations:[],
     rooms: [],       // Liste des chambres
+    image:null,
     
     token: localStorage.getItem("token"),
   };
@@ -33,9 +34,11 @@ const initialState = {
              case ADDING_ROOM:
              return {...state, rooms: action.payload.newRoom}
              case AUTHORIZED:
-              return {...state, users: action.payload.user}
+              return {...state, users: action.payload.user};
 
-             
+            case SET_IMAGE:
+        return {...state,image: action.payload}
+
         default:
       return state;
     }} ;

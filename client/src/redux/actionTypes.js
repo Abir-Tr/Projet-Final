@@ -5,6 +5,7 @@ export const LOG_OUT="LOG_OUT";
 export const AFFICH_ROOMS = 'AFFICH_ROOMS';
 export const ADDING_ROOM="ADDING_ROOM";
 export const AUTHORIZED="AUTHORIZED";
+export const SET_IMAGE="SET_IMAGE";
 
 
 

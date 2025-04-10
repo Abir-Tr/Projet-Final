@@ -31,13 +31,20 @@ route.post("/addRoom" ,upload.single("image"), async(req,res)=>{
       type:req.body.type,
        price:req.body.price, 
         description : req.body.description,
-      available :req.body.available, 
-      image:req.file?`/uploads/${req.file.filename}`:null
+      // available :req.body.available, 
+      // image:req.file?`/uploads/${req.file.filename}`:null
+      image: req.body.image
 
         
 
     })
+    console.log("before save",newRoom)
+    console.log("type:", req.body.type)
+console.log("price:", req.body.price)
+console.log("description:", req.body.description)
+console.log("image:", req.body.image)
      await newRoom.save();
+     console.log("after save",newRoom)
     res.status(200).json({newRoom})
     
  } catch (error) {

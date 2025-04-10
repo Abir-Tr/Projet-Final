@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADDING, ADDING_ROOM, AFFICH_ROOMS, AUTHORIZED, LOG_OUT, LOGGING, RESERVING } from "./actionTypes";
+import { ADDING, ADDING_ROOM, AFFICH_ROOMS, AUTHORIZED, LOG_OUT, LOGGING, RESERVING, SET_IMAGE } from "./actionTypes";
 
 export const adding_user = (newUser) => async (dispatch) => {
   try {
@@ -50,9 +50,10 @@ export const reserving = (newReservation) => async (dispatch) => {
 export const adding_room=(newRoom)=>async(dispatch)=>{
   
   try {
-    console.log("omar")
+  
     const res= await axios.post(`/rooms/addRoom` , newRoom)
     dispatch({type:ADDING_ROOM, payload:res.data})
+    console.log(res.data)
   } catch (error) {
     console.error(error);
   }
@@ -69,5 +70,16 @@ export const authorized =()=> async(dispatch)=>{
     dispatch({type:AUTHORIZED,payload: res.data})
   } catch (error) {
     
+  }
+}
+
+export const uploadImage = (formData)=> async(dispatch)=> {
+  try {
+    const res = await axios.post('rooms/upload', formData, {headers:{'Content-Type': 'multipart/form-data',}});
+    dispatch({type: SET_IMAGE, payload:res.data})
+    return res.data;
+
+  } catch (error) {
+    console.error("error in uploading image", error)
   }
 }
